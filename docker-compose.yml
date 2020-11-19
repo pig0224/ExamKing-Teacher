@@ -7,7 +7,7 @@ services:
       dockerfile: ./docker/nginx/Dockerfile
     container_name: examking_teacher_nginx
     depends_on:
-      - build
+      - teacher_build
     ports:
       - 8082:80
     restart: "always"
