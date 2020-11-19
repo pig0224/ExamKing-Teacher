@@ -19,8 +19,8 @@ services:
       dockerfile: ./docker/build/Dockerfile
     container_name: examking_teacher_build
     volumes:
-      - dist:/home/examking/dist
-      - node_modules:/home/examking/node_modules
+      - dist:/home/examking_teacher/dist
+      - node_modules:/home/examking_teacher/node_modules
 
 volumes: 
   node_modules:
