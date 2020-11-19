@@ -12,19 +12,19 @@ services:
       - 8082:80
     restart: "always"
     volumes:
-      - admin_dist:/var/www/html:rw
+      - teacher_dist:/var/www/html:rw
   teacher_build: 
     build:
       context: ./
       dockerfile: ./docker/build/Dockerfile
     container_name: examking_teacher_build
     volumes:
-      - admin_dist:/home/examking_teacher/dist
-      - admin_node_modules:/home/examking_teacher/node_modules
+      - teacher_dist:/home/examking_teacher/dist
+      - teacher_node_modules:/home/examking_teacher/node_modules
 
 volumes: 
-  admin_node_modules:
-  admin_dist:
+  teacher_node_modules:
+  teacher_dist:
 
 networks: # 创建新的网络类型
   examking_net:
