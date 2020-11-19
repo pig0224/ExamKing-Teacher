@@ -20,7 +20,7 @@ services:
     container_name: examking_teacher_build
     volumes:
       - dist:/home/examking/dist
-      - node_modules:/home/node_modules
+      - node_modules:/home/examking/node_modules
 
 volumes: 
   node_modules:
