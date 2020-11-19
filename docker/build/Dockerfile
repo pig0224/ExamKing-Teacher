@@ -8,7 +8,7 @@ WORKDIR /home/examking
 # 复制项目文件夹
 COPY ./ ./
 # 复制node_modules文件夹
-COPY /home/node_modules ./
+COPY /home/examking/node_modules ./node_modules
 
 # 编译项目
 RUN npm config set registry https://registry.npm.taobao.org \
