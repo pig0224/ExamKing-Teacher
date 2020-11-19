@@ -5,9 +5,12 @@ LABEL author="pig224" email="xiaomo_0258@icloud.com"
 
 # 切换项目目录
 WORKDIR /home/examking
+# 复制项目文件夹
 COPY ./ ./
+# 复制node_modules文件夹
+COPY /home/node_modules ./
 
 # 编译项目
-RUN npm install -g cnpm --registry=https://registry.npm.taobao.org \
-  && cnpm install \
-  && cnpm run build:prod
+RUN npm config set registry https://registry.npm.taobao.org \
+  && npm install \
+  && npm run build:prod

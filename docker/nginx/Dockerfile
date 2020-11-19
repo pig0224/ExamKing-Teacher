@@ -3,11 +3,8 @@ FROM nginx:alpine
 # 镜像信息
 LABEL author="pig224" email="xiaomo_0258@icloud.com"
 
-WORKDIR /var/log/nginx
-COPY ./ ./
+COPY ./docker/nginx/logs /var/log/nginx
 
-WORKDIR /etc/nginx/conf.d/
-COPY ./ ./
+COPY ./docker/nginx/vhost /etc/nginx/conf.d/
 
-WORKDIR /etc/nginx/
-COPY ./nginx.conf ./nginx.conf
+COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
