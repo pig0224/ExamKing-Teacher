@@ -13,9 +13,9 @@ services:
     restart: "always"
     volumes:
       - dist:/var/www/html:rw
-      - nginx/logs:/var/log/nginx:rw
-      - nginx/vhost:/etc/nginx/conf.d/:ro
-      - nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - nginx_logs:/var/log/nginx:rw
+      - nginx_vhost:/etc/nginx/conf.d/:ro
+      - nginx_conf:/etc/nginx/nginx.conf:ro
   teacher_build: 
     build:
       context: ./
@@ -25,12 +25,16 @@ services:
       - ./:/home/examking:rw
       - dist:/home/examking/dist
       - node_modules:/home/examking/node_modules
-      - nginx:/home/examking/nginx
+      - nginx_logs:/home/examking/nginx/log
+      - nginx_vhost:/home/examking/nginx/vhost
+      - nginx_conf:/home/examking/nginx/nginx.conf
 
 volumes: 
   node_modules:
   dist:
-  nginx:
+  nginx_logs:
+  nginx_vhost:
+  nginx_conf:
 
 networks: # 创建新的网络类型
   examking_net:
