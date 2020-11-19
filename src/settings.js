@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '考试君管理后台',
+  title: '考试君教师后台',
 
   /**
    * @type {boolean} true | false
