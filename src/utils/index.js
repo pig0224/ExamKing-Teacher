@@ -45,7 +45,7 @@ export function parseTime(time, cFormat) {
   const time_str = format.replace(/{([ymdhisa])+}/g, (result, key) => {
     const value = formatObj[key]
     // Note: getDay() returns 0 on Sunday
-    if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value ] }
+    if (key === 'a') { return ['日', '一', '二', '三', '四', '五', '六'][value] }
     return value.toString().padStart(2, '0')
   })
   return time_str
@@ -114,4 +114,21 @@ export function param2Obj(url) {
     }
   })
   return obj
+}
+
+// val:秒数
+export function showTime(val) {
+  if (val < 60) {
+    return val + "秒";
+  } else {
+    var min_total = Math.floor(val / 60); // 分钟
+    var sec = Math.floor(val % 60); // 余秒
+    if (min_total < 60) {
+      return min_total + "分钟" + sec + "秒";
+    } else {
+      var hour_total = Math.floor(min_total / 60); // 小时数
+      var min = Math.floor(min_total % 60); // 余分钟
+      return hour_total + "小时" + min + "分钟" + sec + "秒";
+    }
+  }
 }
