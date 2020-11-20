@@ -124,11 +124,21 @@ export function showTime(val) {
     var min_total = Math.floor(val / 60); // 分钟
     var sec = Math.floor(val % 60); // 余秒
     if (min_total < 60) {
-      return min_total + "分钟" + sec + "秒";
+      if (sec == 0) {
+        return min_total + "分钟"
+      } else {
+        return min_total + "分钟" + sec + "秒";
+      }
     } else {
       var hour_total = Math.floor(min_total / 60); // 小时数
       var min = Math.floor(min_total % 60); // 余分钟
-      return hour_total + "小时" + min + "分钟" + sec + "秒";
+      if (sec == 0 && min == 0) {
+        return hour_total + "小时";
+      } else if (sec == 0 && min > 0) {
+        return hour_total + "小时" + min + "分钟"
+      } else {
+        return hour_total + "小时" + min + "分钟" + sec + "秒";
+      }
     }
   }
 }

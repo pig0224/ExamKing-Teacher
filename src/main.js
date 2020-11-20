@@ -35,6 +35,8 @@ Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
+Vue.prototype.$utils = require("@/utils")
+
 new Vue({
   el: '#app',
   router,

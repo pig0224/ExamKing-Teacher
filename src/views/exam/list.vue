@@ -1,4 +1,3 @@
-<!--  -->
 <template>
   <div class="app-container">
     <el-form :model="queryParam"
@@ -20,31 +19,40 @@
               style="width: 100%">
       <el-table-column prop="examName"
                        label="试卷名称" />
-      <!-- <el-table-column prop="dept.deptName"
-                       label="所属系别" />
-      <el-table-column prop="class.classesName"
-                       label="所属班级" /> -->
       <el-table-column prop="startTime"
                        label="开始时间" />
       <el-table-column prop="endTime"
                        label="结束时间" />
-      <el-table-column prop="duration"
-                       label="考试时长" />
-      <el-table-column prop="isEnable"
-                       label="启用状态" />
-      <el-table-column prop="isFinish"
-                       label="结束状态" />
+      <el-table-column label="考试时长"
+                       align="center"
+                       min-width="35">
+        <template slot-scope="scope">
+          {{$utils.showTime(scope.row.duration)}}
+        </template>
+      </el-table-column>
+
+      <el-table-column label="启用状态"
+                       align="center"
+                       min-width="35">
+        <template slot-scope="scope">
+          {{scope.row.isEnable=="1"?"是":"否"}}
+        </template>
+      </el-table-column>
+
+      <el-table-column label="结束状态"
+                       align="center"
+                       min-width="35">
+        <template slot-scope="scope">
+          {{scope.row.isFinish=="1"?"已结束":"未结束"}}
+        </template>
+      </el-table-column>
+      <el-table-column prop="examScore"
+                       label="试卷总分数"
+                       align="center"
+                       min-width="40" />
       <el-table-column prop="createTime"
                        label="创建时间" />
-      <el-table-column prop="examScore"
-                       label="试卷总分数" />
-      <el-table-column prop="judgeScore	"
-                       label="是非题分数" />
-      <el-table-column prop="singleScore"
-                       label="单选题分数" />
-      <el-table-column prop="selectScore"
-                       label="多选题分数" />
-      <el-table-column width="220px"
+      <el-table-column width="150px"
                        label="操作"
                        align="center">
         <template slot-scope="{row}">
@@ -121,24 +129,6 @@ export default {
     },
   },
 }
-// export default {
-//   components: {},
-//   data() {
-//     return {}
-//   },
-//   computed: {},
-//   watch: {},
-//   methods: {},
-//   created() {},
-//   mounted() {},
-//   beforeCreate() {}, //生命周期 - 创建之前
-//   beforeMount() {}, //生命周期 - 挂载之前
-//   beforeUpdate() {}, //生命周期 - 更新之前
-//   updated() {}, //生命周期 - 更新之后
-//   beforeDestroy() {}, //生命周期 - 销毁之前
-//   destroyed() {}, //生命周期 - 销毁完成
-//   activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
-// }
 </script>
 
 <style lang='scss' scoped>
