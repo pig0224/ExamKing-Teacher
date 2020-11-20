@@ -4,7 +4,7 @@ export default {
   // 查询单选题列表
   singleList: (params) => {
     return request({
-      url: '/question/select-list',
+      url: '/question/select-or-single-list',
       method: 'get',
       params: {
         ...params,
@@ -15,7 +15,7 @@ export default {
   // 查询多选题列表
   selectList: (params) => {
     return request({
-      url: '/question/select-list',
+      url: '/question/select-or-single-list',
       method: 'get',
       ...params,
       issingle: false
