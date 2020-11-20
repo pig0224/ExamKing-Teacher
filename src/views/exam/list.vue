@@ -37,7 +37,7 @@
                        align="center"
                        width="80">
         <template slot-scope="scope">
-          {{scope.row.isEnable=="1"?"是":"否"}}
+          {{scope.row.isEnable=="1"?"已启用":"未启用"}}
         </template>
       </el-table-column>
 
@@ -58,19 +58,19 @@
                        label="操作"
                        align="center">
         <template slot-scope="{row}">
-          <router-link :to="{path:'/exam/edit', query:{id:row.id}}"
+          <router-link v-show="row.isEnable == '0'"
+                       :to="{path:'/exam/edit', query:{id:row.id}}"
                        class="link-left">
             <el-button size="mini">编辑</el-button>
           </router-link>
-          <router-link v-show="row.isEnable"
-                       :to="{path:'/exam/edit', query:{id:row.id}}"
-                       class="link-left">
-            <el-button size="mini"
-                       type="primary">启用</el-button>
-          </router-link>
+          <el-button v-show="row.isEnable == '0'"
+                     size="mini"
+                     type="primary"
+                     @click="enableExam(row)"
+                     class="link-left">启用</el-button>
           <el-button size="mini"
                      type="danger"
-                     @click="deleteexam(row)"
+                     @click="delExam(row)"
                      class="link-left">删除</el-button>
         </template>
       </el-table-column>
@@ -115,7 +115,26 @@ export default {
       })
       this.listLoading = false
     },
-    async deleteexam(row) {
+    enableExam(row) {
+      var id = row.id
+      this.$confirm('此操作将启用试卷, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          examApi.enableExam(id).then(() => {
+            this.$message({
+              type: 'success',
+              message: '启用成功!',
+            })
+            this.queryParam.pageIndex = 1
+            this.search()
+          })
+        })
+        .catch(() => {})
+    },
+    async delExam(row) {
       // console.log(row)
       var id = row.id
       this.$confirm('此操作将永久删除, 是否继续?', '提示', {

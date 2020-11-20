@@ -32,7 +32,6 @@ export default {
       params
     })
   },
-
   // 查询考试信息
   find: (id) => {
     return request({
@@ -41,27 +40,31 @@ export default {
     })
   },
   //查询考试是非题列表
-  judes: (params) => {
+  judges: (id) => {
     return request({
-      url: '/exam/judes',
+      url: '/exam/judges/' + id,
       method: 'get',
-      params
     })
   },
   //查询考试多选题列表
-  selects: (params) => {
+  selects: (id) => {
     return request({
-      url: '/exam/selects',
+      url: '/exam/selects/' + id,
       method: 'get',
-      params
     })
   },
   //查询考试单选题列表
-  singles: (params) => {
+  singles: (id) => {
     return request({
-      url: '/exam/singles',
+      url: '/exam/singles/' + id,
       method: 'get',
-      params
     })
   },
+  // 启用试卷
+  enableExam: (id) => {
+    return request({
+      url: `/exam/enable-exam/${id}`,
+      method: 'put',
+    })
+  }
 }

@@ -7,6 +7,7 @@
     <el-button @click="delAllQuestion"
                type="danger">清空题目</el-button>
     <el-table ref="questionTable"
+              v-loading="loading"
               :data="questionItems"
               tooltip-effect="dark"
               style="width: 100%"
@@ -40,7 +41,7 @@
 
     <el-dialog :visible.sync="showDialog"
                width="70%">
-      <el-table v-loading="loading"
+      <el-table v-loading="loadingQuestion"
                 :data="items"
                 @selection-change="handleSelectionQuestionChange"
                 border
@@ -81,6 +82,10 @@ import Pagination from '@/components/Pagination'
 export default {
   name: 'JudgeSelect',
   props: {
+    loading: {
+      type: Boolean,
+      default: false,
+    },
     questionList: {
       required: true,
       type: Array,
@@ -100,7 +105,7 @@ export default {
         pageSize: 5,
       },
       totalCount: 0,
-      loading: true,
+      loadingQuestion: true,
       items: [],
     }
   },
@@ -174,14 +179,14 @@ export default {
       this.search()
     },
     async search() {
-      this.loading = true
+      this.loadingQuestion = true
       // 获取数据
       return await questionApi.judgeList(this.queryParam).then(({ data }) => {
         this.queryParam.pageIndex = data.pageIndex
         this.queryParam.pageSize = data.pageSize
         this.totalCount = data.totalCount
         this.items = data.items
-        this.loading = false
+        this.loadingQuestion = false
       })
     },
     // 数组分页

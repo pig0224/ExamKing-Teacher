@@ -142,3 +142,9 @@ export function showTime(val) {
     }
   }
 }
+
+// 字符串转时间戳
+export function strToTimestamp(str) {
+  var _date = new Date(str).getTime();
+  return parseInt(_date / 1000)
+}
