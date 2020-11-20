@@ -1,26 +1,70 @@
-<!--  -->
 <template>
-  <div class=''></div>
+  <div class="app-container">
+
+    <el-table v-loading="listLoading"
+              :data="items"
+              border
+              fit
+              highlight-current-row
+              style="width: 100%">
+      <el-table-column prop="courseName"
+                       label="课程名称" />
+      <el-table-column prop="createTime"
+                       label="创建时间" />
+
+      <el-table-column width="200px"
+                       label="操作"
+                       align="center">
+        <template slot-scope="{row}">
+          <router-link :to="{path:'/chapter/list', query:{courseId:row.id}}"
+                       class="link-left">
+            <el-button size="mini"
+                       type="primary">章节列表</el-button>
+          </router-link>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <pagination v-show="totalCount>0"
+                :total="totalCount"
+                :page.sync="queryParam.pageIndex"
+                :limit.sync="queryParam.pageSize"
+                @pagination="search" />
+  </div>
 </template>
 
 <script>
+import Pagination from '@/components/Pagination'
+import courseApi from '@/api/course'
+
 export default {
-  components: {},
+  components: { Pagination },
   data() {
-    return {}
+    return {
+      listLoading: false,
+      queryParam: {
+        pageIndex: 1,
+        pageSize: 10,
+      },
+      totalCount: 0,
+      items: [],
+    }
   },
-  computed: {},
-  watch: {},
-  methods: {},
-  created() {},
-  mounted() {},
-  beforeCreate() {}, //生命周期 - 创建之前
-  beforeMount() {}, //生命周期 - 挂载之前
-  beforeUpdate() {}, //生命周期 - 更新之前
-  updated() {}, //生命周期 - 更新之后
-  beforeDestroy() {}, //生命周期 - 销毁之前
-  destroyed() {}, //生命周期 - 销毁完成
-  activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
+  created() {
+    this.search()
+  },
+  methods: {
+    async search() {
+      this.listLoading = true
+      await courseApi.list(this.queryParam).then(({ data }) => {
+        this.queryParam.pageIndex = data.pageIndex
+        this.queryParam.pageSize = data.pageSize
+        this.totalCount = data.totalCount
+        this.items = data.items
+      })
+      this.listLoading = false
+    },
+  },
 }
 </script>
 

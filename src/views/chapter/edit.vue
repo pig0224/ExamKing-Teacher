@@ -1,18 +1,103 @@
-<!--  -->
 <template>
-  <div class=''></div>
+  <div class="app-container">
+    <el-form :model="form"
+             ref="form"
+             label-width="100px"
+             v-loading="formLoading"
+             :rules="rules">
+      <el-form-item v-show="!hideCourseSelect"
+                    label="所属课程："
+                    required>
+        <course-select :course-id.sync="form.courseId"></course-select>
+      </el-form-item>
+      <el-form-item label="章节名称："
+                    prop="chapterName">
+        <el-input v-model="form.chapterName"></el-input>
+      </el-form-item>
+      <el-form-item label="章节描述："
+                    prop="desc">
+        <el-input v-model="form.desc"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="
+                   primary"
+                   @click="submitForm">提交</el-button>
+        <el-button @click="resetForm">重置</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import chapterApi from '@/api/chapter'
+import CourseSelect from '@/components/CourseSelect'
+
 export default {
-  components: {},
+  components: { CourseSelect },
   data() {
-    return {}
+    return {
+      form: {
+        id: 0,
+        chapterName: '',
+        courseId: 0,
+        desc: '',
+      },
+      hideCourseSelect: false,
+      formLoading: false,
+      rules: {
+        chapterName: [
+          { required: true, message: '请输入章节名称', trigger: 'blur' },
+        ],
+        desc: [{ required: true, message: '请输入章节描述', trigger: 'blur' }],
+      },
+    }
   },
   computed: {},
   watch: {},
-  methods: {},
-  created() {},
+  methods: {
+    async submitForm() {
+      let _this = this
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.formLoading = true
+          const { id, chapterName, courseId, desc } = this.form
+          chapterApi
+            .update({ id, chapterName, courseId, desc })
+            .then(() => {
+              _this.$message.success('修改成功')
+              _this.delCurrentView(_this).then(() => {
+                _this.$router.push({
+                  path: '/chapter/list',
+                  query: { courseId: _this.form.courseId },
+                })
+              })
+            })
+            .catch(() => {
+              _this.formLoading = false
+            })
+        } else {
+          return false
+        }
+      })
+    },
+    resetForm() {
+      this.$refs['form'].resetFields()
+    },
+    ...mapActions('tagsView', { delCurrentView: 'delCurrentView' }),
+  },
+  created() {
+    var id = this.$route.query.id
+    var courseId = this.$route.query.courseId
+    if (courseId && id) {
+      this.hideCourseSelect = true
+      this.form.id = id
+      this.form.courseId = courseId
+      chapterApi.find(id).then(({ data }) => {
+        this.form = data
+      })
+    }
+  },
   mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前

@@ -43,6 +43,12 @@ export default {
     },
   },
   watch: {
+    chapterLabel: {
+      handler(val) {
+        this.chapterName = val
+      },
+      deep: true,
+    },
     courseId: {
       handler() {
         this.search()
@@ -53,15 +59,15 @@ export default {
   computed: {
     Chapter: {
       get() {
-        return this.chapterLabel
+        return this.chapterName
       },
       set(val) {
         if (val) {
           var item = this.getItem(this.items, val)
-          this.chapterLabel = item.chapterName
           this.$emit('update:chapterId', item.id)
+          this.chapterName = item.chapterName
         } else {
-          this.chapterLabel = ''
+          this.chapterName = ''
           this.$emit('update:chapterId', 0)
         }
       },
@@ -69,6 +75,7 @@ export default {
   },
   data() {
     return {
+      chapterName: '',
       queryParam: {
         pageIndex: 1,
         pageSize: 10,

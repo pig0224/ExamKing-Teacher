@@ -5,7 +5,8 @@
              label-width="100px"
              v-loading="formLoading"
              :rules="rules">
-      <el-form-item label="所属课程："
+      <el-form-item v-show="!hideCourseSelect"
+                    label="所属课程："
                     required>
         <course-select :course-id.sync="form.courseId"></course-select>
       </el-form-item>
@@ -41,6 +42,7 @@ export default {
         courseId: 0,
         desc: '',
       },
+      hideCourseSelect: false,
       formLoading: false,
       rules: {
         chapterName: [
@@ -63,7 +65,10 @@ export default {
             .then(() => {
               _this.$message.success('新增成功')
               _this.delCurrentView(_this).then(() => {
-                _this.$router.push('/chapter/list')
+                _this.$router.push({
+                  path: '/chapter/list',
+                  query: { courseId: _this.form.courseId },
+                })
               })
             })
             .catch(() => {
@@ -79,7 +84,13 @@ export default {
     },
     ...mapActions('tagsView', { delCurrentView: 'delCurrentView' }),
   },
-  created() {},
+  created() {
+    var courseId = this.$route.query.courseId
+    if (courseId) {
+      this.hideCourseSelect = true
+      this.form.courseId = courseId
+    }
+  },
   mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前

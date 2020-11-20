@@ -75,12 +75,13 @@ export const asyncRoutes = [
         path: 'courses',
         name: 'ChapterCourses',
         component: () => import('@/views/chapter/courses.vue'),
-        meta: { title: '课程列表', icon: 'dashboard' }
+        meta: { title: '课程章节', icon: 'dashboard' }
       },
       {
         path: 'list',
         name: 'ChapterList',
         component: () => import('@/views/chapter/list.vue'),
+        hidden: true,
         meta: { title: '章节列表', icon: 'dashboard' }
       },
       {
@@ -145,7 +146,7 @@ export const asyncRoutes = [
         name: 'JudgeEdit',
         component: () => import('@/views/question/judgeEdit.vue'),
         hidden: true,
-        meta: { title: '编辑选择题', icon: 'dashboard' }
+        meta: { title: '编辑是非题', icon: 'dashboard' }
       }
     ]
   },

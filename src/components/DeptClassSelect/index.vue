@@ -63,26 +63,53 @@ export default {
       default: '',
     },
   },
+  watch: {
+    deptLabel: {
+      handler(val) {
+        this.deptName = val
+      },
+      deep: true,
+    },
+    classesLabel: {
+      handler(val) {
+        this.classesName = val
+      },
+      deep: true,
+    },
+  },
   computed: {
     Dept: {
       get() {
-        return this.deptLabel
+        return this.deptName
       },
       set(val) {
-        var item = this.getClasses(this.deptClasses, val)
-        this.classesList = item.classes
-        this.deptLabel = item.deptName
-        this.$emit('update:deptId', item.id)
+        if (val) {
+          var item = this.getClasses(this.deptClasses, val)
+          this.classesList = item.classes
+          this.deptName = item.deptName
+          this.$emit('update:deptId', item.id)
+        } else {
+          this.classesList = []
+          this.deptName = ''
+          this.$emit('update:deptId', 0)
+          this.classesName = ''
+          this.$emit('update:classesId', 0)
+        }
       },
     },
     Classes: {
       get() {
-        return this.classesLabel
+        return this.classesName
       },
       set(val) {
-        var item = this.getClasses(this.classesList, val)
-        this.classesLabel = item.classesName
-        this.$emit('update:classesId', item.id)
+        if (val) {
+          var item = this.getClasses(this.classesList, val)
+          this.classesName = item.classesName
+          this.$emit('update:classesId', item.id)
+        } else {
+          this.classesName = ''
+          this.$emit('update:classesId', 0)
+        }
       },
     },
   },
@@ -92,13 +119,14 @@ export default {
         pageIndex: 1,
         pageSize: 10,
       },
+      deptName: '',
+      classesName: '',
       totalCount: 0,
       loading: true,
       deptClasses: [],
       classesList: [],
     }
   },
-  watch: {},
   methods: {
     async search() {
       this.loading = true

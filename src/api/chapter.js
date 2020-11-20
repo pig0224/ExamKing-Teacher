@@ -16,5 +16,27 @@ export default {
       method: 'post',
       data
     })
+  },
+  // 删除章节
+  remove: (id) => {
+    return request({
+      url: `/course/remove-chapter/${id}`,
+      method: 'delete',
+    })
+  },
+  // 查找章节
+  find: (id) => {
+    return request({
+      url: `/course/info/${id}`,
+      method: 'get',
+    })
+  },
+  // 更新章节
+  update: (data) => {
+    return request({
+      url: '/course/edit-chapter',
+      method: 'put',
+      data
+    })
   }
 }

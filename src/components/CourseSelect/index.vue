@@ -38,18 +38,26 @@ export default {
       default: '',
     },
   },
+  watch: {
+    courseLabel: {
+      handler(val) {
+        this.courseName = val
+      },
+      deep: true,
+    },
+  },
   computed: {
     Course: {
       get() {
-        return this.courseLabel
+        return this.courseName
       },
       set(val) {
         if (val) {
           var item = this.getItem(this.items, val)
-          this.courseLabel = item.courseName
+          this.courseName = item.courseName
           this.$emit('update:courseId', item.id)
         } else {
-          this.courseLabel = ''
+          this.courseName = ''
           this.$emit('update:courseId', 0)
         }
       },
@@ -61,12 +69,12 @@ export default {
         pageIndex: 1,
         pageSize: 10,
       },
+      courseName: '',
       totalCount: 0,
       loading: true,
       items: [],
     }
   },
-  watch: {},
   methods: {
     async search() {
       this.loading = true
