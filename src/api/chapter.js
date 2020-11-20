@@ -9,4 +9,12 @@ export default {
       params
     })
   },
+  // 章节创建
+  create: (data) => {
+    return request({
+      url: '/course/add-chapter',
+      method: 'post',
+      data
+    })
+  }
 }

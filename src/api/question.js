@@ -29,4 +29,20 @@ export default {
       params
     })
   },
+  // 创建选择题
+  createSelect: (data) => {
+    return request({
+      url: '/question/add-select',
+      method: 'post',
+      data
+    })
+  },
+  // 创建是非题
+  createJudge: (data) => {
+    return request({
+      url: '/question/add-judge',
+      method: 'post',
+      data
+    })
+  }
 }
