@@ -19,13 +19,15 @@
               style="width: 100%">
       <el-table-column prop="examName"
                        label="试卷名称" />
+      <el-table-column prop="course.courseName"
+                       label="所属课程" />
       <el-table-column prop="startTime"
                        label="开始时间" />
       <el-table-column prop="endTime"
                        label="结束时间" />
       <el-table-column label="考试时长"
                        align="center"
-                       min-width="35">
+                       width="80">
         <template slot-scope="scope">
           {{$utils.showTime(scope.row.duration)}}
         </template>
@@ -33,7 +35,7 @@
 
       <el-table-column label="启用状态"
                        align="center"
-                       min-width="35">
+                       width="80">
         <template slot-scope="scope">
           {{scope.row.isEnable=="1"?"是":"否"}}
         </template>
@@ -41,7 +43,7 @@
 
       <el-table-column label="结束状态"
                        align="center"
-                       min-width="35">
+                       width="80">
         <template slot-scope="scope">
           {{scope.row.isFinish=="1"?"已结束":"未结束"}}
         </template>
@@ -49,16 +51,22 @@
       <el-table-column prop="examScore"
                        label="试卷总分数"
                        align="center"
-                       min-width="40" />
+                       width="100" />
       <el-table-column prop="createTime"
                        label="创建时间" />
-      <el-table-column width="150px"
+      <el-table-column width="220px"
                        label="操作"
                        align="center">
         <template slot-scope="{row}">
           <router-link :to="{path:'/exam/edit', query:{id:row.id}}"
                        class="link-left">
             <el-button size="mini">编辑</el-button>
+          </router-link>
+          <router-link v-show="row.isEnable"
+                       :to="{path:'/exam/edit', query:{id:row.id}}"
+                       class="link-left">
+            <el-button size="mini"
+                       type="primary">启用</el-button>
           </router-link>
           <el-button size="mini"
                      type="danger"
