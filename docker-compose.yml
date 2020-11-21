@@ -1,31 +1,23 @@
 version: '3.4'
 
 services:
-  teacher_nginx:
+  nginx:
     build:
       context: ./
       dockerfile: ./docker/nginx/Dockerfile
-    container_name: examking_teacher_nginx
-    depends_on:
-      - teacher_build
+    image: teacher_web:${GITHASH}
     ports:
       - 8082:80
     restart: "always"
+    networks:
+      - server_net
     volumes:
-      - teacher_dist:/var/www/html:rw
-  teacher_build: 
-    build:
-      context: ./
-      dockerfile: ./docker/build/Dockerfile
-    container_name: examking_teacher_build
-    volumes:
-      - teacher_dist:/home/examking_teacher/dist
-      - teacher_node_modules:/home/examking_teacher/node_modules
+      - node_modules:/build:rw
 
 volumes: 
-  teacher_node_modules:
-  teacher_dist:
+  node_modules:
 
 networks: # 创建新的网络类型
-  examking_teacher_net:
-    driver: bridge  # 网络方式：桥接或集群
+  server_net:
+    external:
+      name: ek_server_eknet
