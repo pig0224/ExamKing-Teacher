@@ -199,6 +199,10 @@ export default {
     if (id) {
       this.form.id = id
       await questionApi.findSelect(id).then(({ data }) => {
+        var anwer = data.answer.split('、')
+        anwer.forEach((item) => {
+          this.answerCheckList.push('选项' + item)
+        })
         this.form = data
         this.courseName = data.course.courseName
         this.chapterName = data.chapter.chapterName

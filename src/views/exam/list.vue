@@ -63,11 +63,11 @@
                        class="link-left">
             <el-button size="mini">编辑</el-button>
           </router-link>
-          <el-button v-show="row.isEnable == '0'"
+          <!-- <el-button v-show="row.isEnable == '0'"
                      size="mini"
                      type="primary"
                      @click="enableExam(row)"
-                     class="link-left">启用</el-button>
+                     class="link-left">启用</el-button> -->
           <el-button size="mini"
                      type="danger"
                      @click="delExam(row)"
