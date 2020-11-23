@@ -9,6 +9,8 @@ services:
     ports:
       - 8082:80
     restart: "always"
+    extra_hosts:
+      - "teacher_server:172.16.238.13"
     networks:
       - server_net
     volumes:
