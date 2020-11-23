@@ -40,8 +40,8 @@ module.exports = {
     // 代理解决跨域问题
     proxy: {
       "/dev-teacher-api/v1": {
-        target: 'http://47.107.57.47:8073/api/v1',
-        // target: 'https://localhost:5003/api/v1',
+        // target: 'http://47.107.57.47:8073/api/v1',
+        target: 'https://localhost:5003/api/v1',
         ws: true,
         changeOrigin: true,
         pathRewrite: {

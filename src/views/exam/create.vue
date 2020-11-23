@@ -13,7 +13,8 @@
 
       <el-form-item label="所属班级："
                     required>
-        <dept-class-select :classes-id.sync="classesId"></dept-class-select>
+        <dept-class-select :dept-id.sync="deptId"
+                           :classes-id.sync="classesId"></dept-class-select>
       </el-form-item>
 
       <el-form-item label="试卷名称："
@@ -141,6 +142,7 @@ export default {
       selectScore: '0分',
       formLoading: false,
       classesId: 0,
+      deptId: 0,
       rules: {
         examName: [
           { required: true, message: '请输入试卷名称', trigger: 'blur' },

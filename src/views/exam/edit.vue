@@ -15,7 +15,9 @@
       <el-form-item label="所属班级："
                     required>
         <dept-class-select :classes-id.sync="classesId"
-                           :classesLabel="classesName"></dept-class-select>
+                           :dept-id.sync="deptId"
+                           :dept-label="deptName"
+                           :classes-label="classesName"></dept-class-select>
       </el-form-item>
 
       <el-form-item label="试卷名称："
@@ -108,19 +110,26 @@
 import { mapActions } from 'vuex'
 import examApi from '@/api/exam'
 import CourseSelect from '@/components/CourseSelect'
+import DeptClassSelect from '@/components/DeptClassSelect'
 import SingleSelect from '@/components/SingleSelect'
 import SelectSelect from '@/components/SelectSelect'
 import JudgeSelect from '@/components/JudgeSelect'
 
 export default {
-  components: { CourseSelect, SingleSelect, SelectSelect, JudgeSelect },
+  components: {
+    CourseSelect,
+    DeptClassSelect,
+    SingleSelect,
+    SelectSelect,
+    JudgeSelect,
+  },
   data() {
     return {
       form: {
         id: 0,
         examName: '',
         courseId: 0,
-        classes: [],
+        examclasses: [],
         startTime: '',
         endTime: '',
         duration: 0,
@@ -138,6 +147,9 @@ export default {
       loadingJudges: true,
       courseName: '',
       classesName: '',
+      deptName: '',
+      classesId: 0,
+      deptId: 0,
       duration: '0分钟',
       examScore: '0分',
       judgeScore: '0分',
@@ -159,6 +171,12 @@ export default {
   },
   computed: {},
   watch: {
+    classesId: {
+      handler(val) {
+        this.form.examclasses.push({ classesId: val })
+      },
+      deep: true,
+    },
     form: {
       handler(val) {
         // 计算考试分数
@@ -239,6 +257,8 @@ export default {
         ...form,
         ...data,
       }
+      this.deptName = data.classes[0].dept.deptName
+      this.classesName = data.classes[0].classesName
       this.courseName = data.course.courseName
     })
     // 获取题库信息
