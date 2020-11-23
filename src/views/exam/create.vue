@@ -11,6 +11,11 @@
         <course-select :course-id.sync="form.courseId"></course-select>
       </el-form-item>
 
+      <el-form-item label="所属班级："
+                    required>
+        <dept-class-select :classes-id.sync="classesId"></dept-class-select>
+      </el-form-item>
+
       <el-form-item label="试卷名称："
                     prop="examName">
         <el-input type="text"
@@ -84,15 +89,6 @@
                   v-model="selectScore" />
       </el-form-item>
 
-      <el-form-item label="
-                  启用状态："
-                    prop="isEnable">
-        <el-radio v-model="form.isEnable"
-                  label="1">启用</el-radio>
-        <el-radio v-model="form.isEnable"
-                  label="0">不启用</el-radio>
-      </el-form-item>
-
       <el-form-item>
         <el-button type="
                    primary"
@@ -107,17 +103,25 @@
 import { mapActions } from 'vuex'
 import examApi from '@/api/exam'
 import CourseSelect from '@/components/CourseSelect'
+import DeptClassSelect from '@/components/DeptClassSelect'
 import SingleSelect from '@/components/SingleSelect'
 import SelectSelect from '@/components/SelectSelect'
 import JudgeSelect from '@/components/JudgeSelect'
 
 export default {
-  components: { CourseSelect, SingleSelect, SelectSelect, JudgeSelect },
+  components: {
+    CourseSelect,
+    DeptClassSelect,
+    SingleSelect,
+    SelectSelect,
+    JudgeSelect,
+  },
   data() {
     return {
       form: {
         examName: '',
         courseId: 0,
+        examclasses: [],
         startTime: '',
         endTime: '',
         duration: 0,
@@ -136,6 +140,7 @@ export default {
       singleScore: '0分',
       selectScore: '0分',
       formLoading: false,
+      classesId: 0,
       rules: {
         examName: [
           { required: true, message: '请输入试卷名称', trigger: 'blur' },
@@ -151,6 +156,13 @@ export default {
   },
   computed: {},
   watch: {
+    classesId: {
+      handler(val) {
+        console.log(val)
+        this.form.examclasses.push({ classesId: val })
+      },
+      deep: true,
+    },
     form: {
       handler(val) {
         // 计算考试分数

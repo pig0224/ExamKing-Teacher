@@ -58,8 +58,7 @@
                        label="操作"
                        align="center">
         <template slot-scope="{row}">
-          <router-link v-show="row.isEnable == '0'"
-                       :to="{path:'/exam/edit', query:{id:row.id}}"
+          <router-link :to="{path:'/exam/edit', query:{id:row.id}}"
                        class="link-left">
             <el-button size="mini">编辑</el-button>
           </router-link>

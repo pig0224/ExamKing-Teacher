@@ -12,6 +12,12 @@
                        :course-id.sync="form.courseId"></course-select>
       </el-form-item>
 
+      <el-form-item label="所属班级："
+                    required>
+        <dept-class-select :classes-id.sync="classesId"
+                           :classesLabel="classesName"></dept-class-select>
+      </el-form-item>
+
       <el-form-item label="试卷名称："
                     prop="examName">
         <el-input type="text"
@@ -88,15 +94,6 @@
                   v-model="selectScore" />
       </el-form-item>
 
-      <el-form-item label="
-                  启用状态："
-                    prop="isEnable">
-        <el-radio v-model="form.isEnable"
-                  label="1">启用</el-radio>
-        <el-radio v-model="form.isEnable"
-                  label="0">不启用</el-radio>
-      </el-form-item>
-
       <el-form-item>
         <el-button type="
                    primary"
@@ -123,6 +120,7 @@ export default {
         id: 0,
         examName: '',
         courseId: 0,
+        classes: [],
         startTime: '',
         endTime: '',
         duration: 0,
@@ -139,6 +137,7 @@ export default {
       loadingSelects: true,
       loadingJudges: true,
       courseName: '',
+      classesName: '',
       duration: '0分钟',
       examScore: '0分',
       judgeScore: '0分',
