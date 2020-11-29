@@ -234,6 +234,18 @@ export default {
             _this.$message.error('考试时间设置不正确')
             return false
           }
+          if (this.form.selectScore <= 0) {
+            _this.$message.error('请选择多选题并设置分数')
+            return false
+          }
+          if (this.form.singleScore <= 0) {
+            _this.$message.error('请选择单选题并设置分数')
+            return false
+          }
+          if (this.form.judgeScore <= 0) {
+            _this.$message.error('请选择是非题并设置分数')
+            return false
+          }
           this.formLoading = true
           examApi
             .update(this.form)
