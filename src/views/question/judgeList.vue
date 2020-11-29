@@ -4,7 +4,7 @@
              ref="queryForm"
              :inline="true">
       <el-form-item>
-        <router-link :to="{path:'/question/select-create'}"
+        <router-link :to="{path:'/question/judge-create'}"
                      class="link-left">
           <el-button type="primary">添加</el-button>
         </router-link>
