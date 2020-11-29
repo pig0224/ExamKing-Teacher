@@ -84,7 +84,7 @@
                   v-model="singleScore" />
       </el-form-item>
 
-      <el-form-item label="单选题分数">
+      <el-form-item label="多选题分数">
         <el-input type="text"
                   disabled
                   v-model="selectScore" />
@@ -160,6 +160,7 @@ export default {
   watch: {
     classesId: {
       handler(val) {
+        this.form.examclasses = []
         console.log(val)
         this.form.examclasses.push({ classesId: val })
       },
@@ -209,6 +210,14 @@ export default {
       let _this = this
       this.$refs.form.validate((valid) => {
         if (valid) {
+          if (this.form.courseId <= 0) {
+            _this.$message.error('请选择所属系别')
+            return false
+          }
+          if (this.form.examclasses.length <= 0) {
+            _this.$message.error('请选择所属班级')
+            return false
+          }
           // 判断考试时长
           if (this.form.duration <= 0) {
             _this.$message.error('考试时间设置不正确')
