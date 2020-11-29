@@ -18,16 +18,20 @@
               highlight-current-row
               style="width: 100%">
       <el-table-column prop="examName"
-                       label="试卷名称" />
+                       label="试卷名称"
+                       min-width="220px" />
       <el-table-column prop="course.courseName"
-                       label="所属课程" />
+                       label="所属课程"
+                       width="180px" />
       <el-table-column prop="startTime"
-                       label="开始时间" />
+                       label="开始时间"
+                       width="160px" />
       <el-table-column prop="endTime"
-                       label="结束时间" />
+                       label="结束时间"
+                       width="160px" />
       <el-table-column label="考试时长"
                        align="center"
-                       width="80">
+                       width="110px">
         <template slot-scope="scope">
           {{$utils.showTime(scope.row.duration)}}
         </template>
@@ -49,28 +53,29 @@
         </template>
       </el-table-column>
       <el-table-column prop="examScore"
-                       label="试卷总分数"
+                       label="总分数"
                        align="center"
-                       width="100" />
+                       width="70px" />
       <el-table-column prop="createTime"
-                       label="创建时间" />
-      <el-table-column width="220px"
+                       label="创建时间"
+                       width="160px" />
+      <el-table-column width="150px"
                        label="操作"
                        align="center">
         <template slot-scope="{row}">
-          <router-link :to="{path:'/exam/edit', query:{id:row.id}}"
-                       class="link-left">
-            <el-button size="mini">编辑</el-button>
-          </router-link>
-          <!-- <el-button v-show="row.isEnable == '0'"
-                     size="mini"
-                     type="primary"
-                     @click="enableExam(row)"
-                     class="link-left">启用</el-button> -->
-          <el-button size="mini"
-                     type="danger"
-                     @click="delExam(row)"
-                     class="link-left">删除</el-button>
+          <div v-if="row.isEnable == '1'">
+            试卷已启用
+          </div>
+          <div v-else>
+            <router-link :to="{path:'/exam/edit', query:{id:row.id}}"
+                         class="link-left">
+              <el-button size="mini">编辑</el-button>
+            </router-link>
+            <el-button size="mini"
+                       type="danger"
+                       @click="delExam(row)"
+                       class="link-left">删除</el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
