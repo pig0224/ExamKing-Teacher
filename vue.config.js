@@ -14,6 +14,8 @@ const name = defaultSettings.title || '考试君管理后台' // page title
 // You can change the port by the following methods:
 // port = 9528 npm run dev OR npm run dev --port = 9528const port = process.env.port || process.env.npm_config_port || 9527 // dev port
 
+const port = process.env.port || process.env.npm_config_port || 9527 // dev port
+
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
   /**
