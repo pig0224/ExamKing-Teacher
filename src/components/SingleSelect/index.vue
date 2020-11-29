@@ -159,7 +159,9 @@ export default {
     async delQuestion(row) {
       var newQuestionList = this.questionList
       var index = newQuestionList.findIndex((item) => {
-        if (item.id == row.questionId) {
+        // console.log(item)
+        // console.log(row)
+        if (item.questionId == row.questionId) {
           return true
         }
       })
