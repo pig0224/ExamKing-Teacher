@@ -139,6 +139,10 @@ export default {
         cancelButtonText: '取消',
       })
         .then(({ value }) => {
+          if (!value) {
+            that.$message.error('请设置分数')
+            return false
+          }
           var newQuestionList = that.questionList
           newQuestionList[index].score = parseInt(value)
           that.$emit('update:questionList', newQuestionList)
