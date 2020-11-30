@@ -11,11 +11,11 @@
         <course-select :course-id.sync="form.courseId"></course-select>
       </el-form-item>
 
-      <el-form-item label="所属班级："
+      <!-- <el-form-item label="所属班级："
                     required>
         <dept-class-select :dept-id.sync="deptId"
                            :classes-id.sync="classesId"></dept-class-select>
-      </el-form-item>
+      </el-form-item> -->
 
       <el-form-item label="试卷名称："
                     prop="examName">
@@ -104,7 +104,7 @@
 import { mapActions } from 'vuex'
 import examApi from '@/api/exam'
 import CourseSelect from '@/components/CourseSelect'
-import DeptClassSelect from '@/components/DeptClassSelect'
+// import DeptClassSelect from '@/components/DeptClassSelect'
 import SingleSelect from '@/components/SingleSelect'
 import SelectSelect from '@/components/SelectSelect'
 import JudgeSelect from '@/components/JudgeSelect'
@@ -112,7 +112,7 @@ import JudgeSelect from '@/components/JudgeSelect'
 export default {
   components: {
     CourseSelect,
-    DeptClassSelect,
+    // DeptClassSelect,
     SingleSelect,
     SelectSelect,
     JudgeSelect,
@@ -122,7 +122,6 @@ export default {
       form: {
         examName: '',
         courseId: 0,
-        examclasses: [],
         startTime: '',
         endTime: '',
         duration: 0,
@@ -212,10 +211,6 @@ export default {
         if (valid) {
           if (this.form.courseId <= 0) {
             _this.$message.error('请选择所属系别')
-            return false
-          }
-          if (this.form.examclasses.length <= 0) {
-            _this.$message.error('请选择所属班级')
             return false
           }
           // 判断考试时长

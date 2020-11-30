@@ -144,7 +144,7 @@ export default {
             return false
           }
           var newQuestionList = that.questionList
-          newQuestionList[index].score = parseInt(value)
+          newQuestionList[index].score = isNaN(value) ? 0 : parseInt(value)
           that.$emit('update:questionList', newQuestionList)
           that.searchQuestion()
         })
