@@ -71,10 +71,10 @@
                          class="link-left">
               <el-button size="mini">编辑</el-button>
             </router-link>
-            <el-button size="mini"
+            <!-- <el-button size="mini"
                        type="danger"
                        @click="delExam(row)"
-                       class="link-left">删除</el-button>
+                       class="link-left">删除</el-button> -->
           </div>
         </template>
       </el-table-column>
