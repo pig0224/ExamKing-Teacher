@@ -73,8 +73,8 @@ export default {
     }
     return {
       loginForm: {
-        teacherNo: 'string',
-        password: 'string',
+        teacherNo: '',
+        password: '',
       },
       loginRules: {
         teacherNo: [
